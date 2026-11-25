@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import Builder from './builder'
 
 export default function App() {
+  const [page, setPage] = useState<'login' | 'builder'>('login')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -19,9 +21,11 @@ export default function App() {
       setError('Identifiants incorrects')
     }
   }
-
+  if (page === 'builder')
+    return <Builder />
   return (
     <main>
+      <button onClick={() => setPage('builder')}>Voir le builder</button>
       <h1>Connexion</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
