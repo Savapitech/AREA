@@ -306,7 +306,9 @@ async function openapi(target) {
 async function drift(target) {
   const workdir = mkdtempSync(path.join(os.tmpdir(), 'area-drift-'));
   try {
-    execFileSync('sh', ['-c', `git -C "${root}" archive HEAD "${target.dir}" | tar -x -C "${workdir}"`]);
+    const top = run('git', ['-C', root, 'rev-parse', '--show-toplevel']).trim();
+    const tree = `HEAD:${path.relative(top, root).split(path.sep).join('/')}`;
+    execFileSync('sh', ['-c', `git -C "${top}" archive "${tree}" "${target.dir}" | tar -x -C "${workdir}"`]);
     run('git', ['apply', path.join(bench, 'drift', `${target.name}.patch`)], { cwd: workdir });
     run('docker', ['build', '-q', '-t', `${target.image}:drift`, path.join(workdir, target.dir)]);
     await start({ ...target, services: [target.services[0]] }, { [target.imageVar]: `${target.image}:drift` });

@@ -52,9 +52,9 @@ They were chosen to answer two different questions:
 
 | Technology | Language and runtime | Prototyped | Folder |
 | ---------- | -------------------- | ---------- | ------ |
-| **NestJS 12** | TypeScript, Node.js 24 | Yes | `nestJs-poc/` |
-| Express 5 alone | TypeScript, Node.js 24 | Yes | `express-poc/` |
-| Laravel 13 | PHP 8.5, FrankenPHP | Yes | `laravel-poc/` |
+| **NestJS 12** | TypeScript, Node.js 24 | Yes | `pocs/backend/nestJs-poc/` |
+| Express 5 alone | TypeScript, Node.js 24 | Yes | `pocs/backend/express-poc/` |
+| Laravel 13 | PHP 8.5, FrankenPHP | Yes | `pocs/backend/laravel-poc/` |
 
 Other options were studied without a prototype, because a reason specific to
 this project ruled them out first:
@@ -103,7 +103,7 @@ behavior:
 | List of the detected events, protected by the JWT | `GET /hooks/events` |
 | OpenAPI description and browsable interface | `GET /docs/openapi.json`, `GET /docs` |
 
-The benchmark in `backend-bench/` builds a Docker image of each prototype and
+The benchmark in `pocs/backend/backend-bench/` builds a Docker image of each prototype and
 runs them one at a time against the same PostgreSQL 17 server, each limited to
 2 CPUs and 512 MB, with secrets generated for the run. Laravel is served by
 FrankenPHP, a production server, rather than by the development server of
@@ -111,7 +111,7 @@ FrankenPHP, a production server, rather than by the development server of
 replays the functional scenario, runs the attack suite, measures the login
 response times and the throughput, applies the drift patch, and counts the
 code and the dependencies. The results below come from the run of 2026-11-26
-on commit `33fd44d` (`backend-bench/results.json`), on an AMD Ryzen 7 8700F.
+on commit `33fd44d` (`pocs/backend/backend-bench/results.json`), on an AMD Ryzen 7 8700F.
 
 ### 4.2 Functional parity
 
@@ -143,10 +143,10 @@ the comparison fair: the differences below do not come from a missing feature.
 | Drift test: new route appears in the description | yes | no | yes |
 
 The drift test adds a `GET /hooks/drift` route to the code of each prototype
-and nothing else (`backend-bench/drift/`). It shows the risk the subject wants a
+and nothing else (`pocs/backend/backend-bench/drift/`). It shows the risk the subject wants a
 test to catch: with Express, the route is served but missing from the
 description, because the description is a second, hand written copy of the
-routes (`express-poc/src/openapi.ts`). With NestJS, `@nestjs/swagger` reads the
+routes (`pocs/backend/express-poc/src/openapi.ts`). With NestJS, `@nestjs/swagger` reads the
 controllers. With Laravel, Scramble reads the routes.
 
 Laravel is ahead on one point and we say it: Scramble infers the request
@@ -162,10 +162,10 @@ environment unless a gate allows it, a good default.
 | | NestJS | Express | Laravel |
 | --- | --- | --- | --- |
 | Unit of code | Module that declares its controllers, providers, imports and exports | File that exports a router or a function | Controller, service provider, middleware |
-| Dependencies | Injected through constructors, resolved by the container | Imported module singletons (`express-poc/src/data-source.ts`) | Injected by the service container |
+| Dependencies | Injected through constructors, resolved by the container | Imported module singletons (`pocs/backend/express-poc/src/data-source.ts`) | Injected by the service container |
 | Protecting a route | Guard class, reused by another module through its exports (`JwtAuthGuard` in `HooksModule`) | Middleware function, the user is attached with a cast | Middleware alias |
-| Validation | Declared on the DTO class, applied by a global pipe | Our own middleware around zod (`express-poc/src/middleware/validate.ts`) | Rules in the controller |
-| Error format | Built-in exceptions with a uniform body | Our own error handler, applied by convention (`express-poc/src/errors.ts`) | Built-in exception handler |
+| Validation | Declared on the DTO class, applied by a global pipe | Our own middleware around zod (`pocs/backend/express-poc/src/middleware/validate.ts`) | Rules in the controller |
+| Error format | Built-in exceptions with a uniform body | Our own error handler, applied by convention (`pocs/backend/express-poc/src/errors.ts`) | Built-in exception handler |
 | Hand written code, files / non blank lines | 17 / 370 | 14 / 289 | 15 / 323 |
 
 NestJS needs more code than Express for the same scope (370 lines against 289):
@@ -198,7 +198,7 @@ services.
 ### 4.6 Security
 
 **Attack suite.** The same 14 attacks were run against each prototype
-(`backend-bench/bench.mjs`, function `security`).
+(`pocs/backend/backend-bench/bench.mjs`, function `security`).
 
 | Attack | Expected | NestJS | Express | Laravel |
 | --- | --- | --- | --- | --- |
@@ -230,7 +230,7 @@ What the results say:
   validated data only.
 - **Headers.** The Laravel result is not a default: the PHP image sent
   `X-Powered-By: PHP/8.5.13` until we set `expose_php = Off` in
-  `laravel-poc/Dockerfile`. Both Node.js prototypes send `X-Powered-By: Express`,
+  `pocs/backend/laravel-poc/Dockerfile`. Both Node.js prototypes send `X-Powered-By: Express`,
   which `app.disable('x-powered-by')` removes.
 - **Account enumeration.** The three prototypes answer an unknown email about
   150 ms faster than a known one, because they skip the password hash. An
@@ -411,22 +411,22 @@ Everything above can be reproduced from the repository. Docker, Node.js 24 and
 OpenSSL are needed.
 
 ```sh
-make backend-bench        # or ./backend-bench/run.sh
+make backend-bench        # or ./pocs/backend/backend-bench/run.sh
 ```
 
 The command builds the three images, runs the benchmark and writes
-`backend-bench/results.json` and `backend-bench/results.md`. It takes about
+`pocs/backend/backend-bench/results.json` and `pocs/backend/backend-bench/results.md`. It takes about
 five minutes. Numbers change slightly from one machine and one run to another;
 the verdicts do not.
 
 | Evidence | Where |
 | -------- | ----- |
-| NestJS prototype | `nestJs-poc/` |
-| Express prototype | `express-poc/` |
-| Laravel prototype | `laravel-poc/` |
-| Benchmark, attack suite and drift test | `backend-bench/bench.mjs`, `backend-bench/drift/` |
-| Resource limits and secrets of the run | `backend-bench/compose.yaml`, `backend-bench/run.sh` |
-| Results of the run quoted here | `backend-bench/results.json`, `backend-bench/results.md` |
+| NestJS prototype | `pocs/backend/nestJs-poc/` |
+| Express prototype | `pocs/backend/express-poc/` |
+| Laravel prototype | `pocs/backend/laravel-poc/` |
+| Benchmark, attack suite and drift test | `pocs/backend/backend-bench/bench.mjs`, `pocs/backend/backend-bench/drift/` |
+| Resource limits and secrets of the run | `pocs/backend/backend-bench/compose.yaml`, `pocs/backend/backend-bench/run.sh` |
+| Results of the run quoted here | `pocs/backend/backend-bench/results.json`, `pocs/backend/backend-bench/results.md` |
 | Search in the CISA catalog of exploited vulnerabilities | `tools/kev.mjs` |
 
 Each prototype can also be started on its own with its `compose.yaml` and its

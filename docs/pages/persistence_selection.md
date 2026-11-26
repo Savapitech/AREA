@@ -6,7 +6,7 @@ This document is the persistence technology selection asked by the Plan
 milestone. It lists the technologies we considered, the criteria we evaluated
 them against, security included, the comparison we performed and its results,
 and the final choice with its justification. Every measured claim comes from
-the proof of concept in `persistence-poc/` and can be reproduced with one
+the proof of concept in `pocs/database/persistence-poc/` and can be reproduced with one
 command (see @ref persistence_selection_evidence).
 
 **Short answer.** AREA will store its data in **PostgreSQL 17**. Most of what
@@ -81,7 +81,7 @@ user are bugs the subject names explicitly.
 
 ### 4.1 Method
 
-The benchmark in `persistence-poc/` starts each database alone with Docker
+The benchmark in `pocs/database/persistence-poc/` starts each database alone with Docker
 Compose, then runs two scripts against it:
 
 - `benchmark.js` creates 100 users and 10 000 workflows whose `config` is JSON
@@ -95,7 +95,7 @@ Compose, then runs two scripts against it:
   image without a password.
 
 The results below come from the run of 2026-11-26 on commit `a33fe57`
-(`persistence-poc/results.json`), on an AMD Ryzen 7 8700F, with PostgreSQL 17,
+(`pocs/database/persistence-poc/results.json`), on an AMD Ryzen 7 8700F, with PostgreSQL 17,
 MariaDB 11.4 and MongoDB 8.
 
 ### 4.2 Data model
@@ -243,7 +243,7 @@ is reduced, and the relations of section 1 would be written by hand.
 | --- | --- | --- | --- |
 | Docker image (MB) | 665 | 451 | 1160 |
 | Memory after the checks | 51.18MiB | 149.3MiB | 271MiB |
-| Setup for transactions | None | None | A replica set, initialized by a script after the start (`persistence-poc/run.sh`) |
+| Setup for transactions | None | None | A replica set, initialized by a script after the start (`pocs/database/persistence-poc/run.sh`) |
 | Backup tools | `pg_dump`, `pg_restore` | `mariadb-dump`, `mariadb-backup` | `mongodump`, `mongorestore` |
 | License | PostgreSQL License | GPL version 2 | Server Side Public License |
 
@@ -309,21 +309,21 @@ Everything above can be reproduced from the repository. Docker and Node.js 24
 are needed.
 
 ```sh
-./persistence-poc/run.sh
+make persistence-bench    # or ./pocs/database/persistence-poc/run.sh
 ```
 
 The command starts each database alone, runs `benchmark.js` and `checks.js`
 against it, starts each official image without a password, and writes
-`persistence-poc/results.json` and `persistence-poc/results.md`. It takes
+`pocs/database/persistence-poc/results.json` and `pocs/database/persistence-poc/results.md`. It takes
 about ten minutes. Numbers change slightly from one machine and one run to
 another; the verdicts do not.
 
 | Evidence | Where |
 | -------- | ----- |
-| Operations, rollback and foreign key checks | `persistence-poc/benchmark.js` |
-| Integrity, concurrency, JSON index, security and image default checks | `persistence-poc/checks.js` |
-| Database versions and setup | `persistence-poc/compose.yaml`, `persistence-poc/run.sh` |
-| Results of the run quoted here | `persistence-poc/results.json`, `persistence-poc/results.md` |
+| Operations, rollback and foreign key checks | `pocs/database/persistence-poc/benchmark.js` |
+| Integrity, concurrency, JSON index, security and image default checks | `pocs/database/persistence-poc/checks.js` |
+| Database versions and setup | `pocs/database/persistence-poc/compose.yaml`, `pocs/database/persistence-poc/run.sh` |
+| Results of the run quoted here | `pocs/database/persistence-poc/results.json`, `pocs/database/persistence-poc/results.md` |
 | Search in the CISA catalog of exploited vulnerabilities | `tools/kev.mjs` |
 
 ## 7. Exploration by member

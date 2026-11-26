@@ -15,7 +15,10 @@ docs: $(DOCS_THEME_DIR)
 	@ $(LOG_TIME) "$(C_BLUE) OK $(C_GREEN) docs written to build/docs/html $(C_RESET)"
 
 backend-bench:
-	@ ./backend-bench/run.sh
+	@ ./pocs/backend/backend-bench/run.sh
+
+persistence-bench:
+	@ ./pocs/database/persistence-poc/run.sh
 
 clean:
 	@ rm -rf build/docs
@@ -25,4 +28,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all docs backend-bench clean fclean re
+.PHONY: all docs backend-bench persistence-bench clean fclean re
