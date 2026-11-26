@@ -15,12 +15,15 @@ they rely on.
 | -------------- | ---- |
 | Know why the application server uses NestJS | @ref backend_selection |
 | Reproduce the back-end measures | @ref backend_selection_evidence |
+| Know why the data is stored in PostgreSQL | @ref persistence_selection |
+| Reproduce the persistence measures | @ref persistence_selection_evidence |
 
 ## Project at a glance
 
 | Item | Value |
 | ---- | ----- |
 | Application server | NestJS on Node.js 24, TypeScript |
+| Database | PostgreSQL 17 |
 | Web client | React, TypeScript |
 | Mobile client | Android |
 | Build and run | Docker Compose |
@@ -39,3 +42,4 @@ it on every pull request, fails on any Doxygen warning, and publishes it from
 ## Guides
 
 - @subpage backend_selection
+- @subpage persistence_selection
