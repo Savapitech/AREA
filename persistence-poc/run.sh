@@ -4,6 +4,8 @@ cd "$(dirname "$0")"
 export COMPOSE_PROJECT_NAME=area-persistence-benchmark
 trap 'docker compose down -v' EXIT
 npm install --no-audit --no-fund
+rm -f results.json
+node checks.js defaults
 for db in postgres mariadb mongodb; do
   docker compose up -d "$db"
   if [[ "$db" == mongodb ]]; then
@@ -13,6 +15,8 @@ for db in postgres mariadb mongodb; do
     done
   fi
   node benchmark.js "$db"
+  node checks.js "$db"
   docker compose down -v
 done
 node benchmark.js report
+node report.js
