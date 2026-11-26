@@ -26,4 +26,4 @@ Route::post('/webhook', function (Request $request) {
         'eventType' => $data['eventType'],
         'payload' => $data['payload']
     ]);
-});
+})->middleware('hook.signature');
