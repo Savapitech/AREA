@@ -5,12 +5,14 @@ import { AuthModule } from './auth/auth.module.js';
 import { HooksModule } from './hooks/hooks.module.js';
 import { ConfigService, ConfigModule} from '@nestjs/config'
 import { TypeOrmModule} from '@nestjs/typeorm'
+import { ScheduleModule } from '@nestjs/schedule'
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal : true,
     }),
+    ScheduleModule.forRoot(),
 
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
