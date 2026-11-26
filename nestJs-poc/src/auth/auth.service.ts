@@ -11,8 +11,12 @@ export class AuthService {
   constructor(
     @InjectRepository(User)
     private readonly users: Repository<User>,
-    private readonly JwtService: JwtService,
+    private readonly jwtService: JwtService,
   ) {}
+
+  findById(id: string) {
+    return this.users.findOneBy({ id });
+  }
 
   async register(dto: AuthDto) {
     const existing = await this.users.findOneBy({
@@ -62,7 +66,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const access_token = await this.JwtService.signAsync({
+    const access_token = await this.jwtService.signAsync({
       sub: user.id,
       email: user.email,
     });

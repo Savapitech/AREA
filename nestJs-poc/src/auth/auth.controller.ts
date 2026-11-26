@@ -1,16 +1,15 @@
-import { Body, Controller, Post, Headers, Get, UnauthorizedException, HttpCode } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Post, Get, HttpCode, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service.js';
-import { JwtService } from '@nestjs/jwt';
 import { AuthDto } from './auth.dto.js';
+import { JwtAuthGuard } from './jwt-auth.guard.js';
+import { CurrentUser } from './current-user.decorator.js';
+import { User } from './user.entity.js';
 
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly jwtService: JwtService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Post('register')
   register(@Body() dto: AuthDto) {
@@ -24,22 +23,9 @@ export class AuthController {
   }
 
   @Get('me')
-  async me(@Headers('authorization') authorization?: string) {
-    const token = authorization?.startsWith('Bearer ') ? authorization.slice(7) : null;
-
-    if (!token) {
-      throw new UnauthorizedException();
-    }
-
-    try {
-      const payload = await this.jwtService.verifyAsync(token);
-
-      return {
-        id: payload.sub,
-        email: payload.email,
-      };
-    } catch {
-      throw new UnauthorizedException();
-    }
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  me(@CurrentUser() user: User) {
+    return { id: user.id, email: user.email };
   }
 }
