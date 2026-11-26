@@ -258,6 +258,24 @@ that layer:
   `decrypt()` deserializes its input. GitGuardian and Synacktiv found hundreds
   of applications exposed this way in 2025.
 
+The catalog of known exploited vulnerabilities of CISA lists the flaws that
+attackers really used. In its version 2026.11.25 (1805 entries), this command
+finds:
+
+```sh
+node tools/kev.mjs '^PHP' '^Laravel$' 'Node\.?js' '^Express\b' 'NestJS' 'TypeORM'
+```
+
+| Searched | Entries | Most recent |
+| -------- | ------: | ----------- |
+| PHP, its interpreter, FPM and CGI included | 8 | CVE-2026-109618 and CVE-2026-109619, added on 2026-10-26 |
+| Laravel, its framework and packages | 3 | CVE-2025-54068 in Livewire, added on 2026-03-20; CVE-2018-15133 is the `APP_KEY` deserialization of the framework |
+| Node.js | 1 | CVE-2021-21315, in an npm package (systeminformation), not in Node.js itself |
+| Express, NestJS, TypeORM | 0 | |
+
+An empty line does not mean that a project has no vulnerability, only that
+none was reported as exploited.
+
 Node.js is not free of vulnerabilities: its October 2026 release fixed 10 of
 them, the most severe rated High, including a Brotli out-of-bounds write
 (CVE-2026-111497) that was the same library bug as one PHP fixed in its Windows
@@ -409,6 +427,7 @@ the verdicts do not.
 | Benchmark, attack suite and drift test | `backend-bench/bench.mjs`, `backend-bench/drift/` |
 | Resource limits and secrets of the run | `backend-bench/compose.yaml`, `backend-bench/run.sh` |
 | Results of the run quoted here | `backend-bench/results.json`, `backend-bench/results.md` |
+| Search in the CISA catalog of exploited vulnerabilities | `tools/kev.mjs` |
 
 Each prototype can also be started on its own with its `compose.yaml` and its
 `.env.example`, and its browsable interface is served at `/docs`.
@@ -426,6 +445,7 @@ Each prototype can also be started on its own with its `compose.yaml` and its
 - [PHP advisories and changelog](https://www.php.net/ChangeLog-8.php)
 - [CISA, critical vulnerabilities in PHP require immediate patching (October 2026)](https://www.cisa.gov/news-events/alerts/2026/10/21/critical-vulnerabilities-php-require-immediate-patching)
 - [BleepingComputer, PHP security updates fix 18 flaws (November 2026)](https://www.bleepingcomputer.com/news/security/php-security-updates-fix-18-flaws-including-critical-rce-bugs/)
+- [CISA, Known Exploited Vulnerabilities catalog](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)
 - [Help Net Security, CVE-2024-4577 exploited to deliver ransomware](https://www.helpnetsecurity.com/2024/06/13/cve-2024-4577-exploited/)
 - [GitGuardian, exploiting public APP_KEY leaks](https://blog.gitguardian.com/exploiting-public-app_key-leaks/)
 - [Synacktiv, Laravel APP_KEY leakage analysis](https://synacktiv.com/en/publications/laravel-appkey-leakage-analysis)
