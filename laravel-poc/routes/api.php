@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthController;
 
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
-Route::get('/auth/me', [AuthController::class, 'me']);
+Route::get('/auth/me', [AuthController::class, 'me'])->middleware('jwt');
 
 Route::get('/health', function () {
     return response()->json([
@@ -27,7 +27,3 @@ Route::post('/webhook', function (Request $request) {
         'payload' => $data['payload']
     ]);
 });
-
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
