@@ -1,0 +1,12 @@
+{
+  "name": "area-backend-bench",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bench": "./run.sh"
+  },
+  "dependencies": {
+    "autocannon": "^9.0.0"
+  }
+}

@@ -1,0 +1,13 @@
+--- a/express-poc/src/routes/hooks.ts
++++ b/express-poc/src/routes/hooks.ts
+@@ -22,6 +22,10 @@
+   res.json({ received: true, duplicate: !isNew });
+ });
+ 
++hooksRouter.get('/drift', (_req, res) => {
++  res.json({ drift: true });
++});
++
+ hooksRouter.get('/events', requireAuth, async (_req, res) => {
+   res.json(await hookEvents().find({ order: { receivedAt: 'DESC' }, take: 20 }));
+ });
