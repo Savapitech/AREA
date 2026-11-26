@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: bench
+      POSTGRES_PASSWORD: bench
+      POSTGRES_DB: typeorm
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports: ['127.0.0.1:15434:5432']
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "bench"]
+      interval: 1s
+      retries: 60

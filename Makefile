@@ -17,6 +17,9 @@ docs: $(DOCS_THEME_DIR)
 backend-bench:
 	@ ./pocs/backend/backend-bench/run.sh
 
+orm-bench:
+	@ ./pocs/database/orm-poc/run.sh
+
 persistence-bench:
 	@ ./pocs/database/persistence-poc/run.sh
 
@@ -28,4 +31,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all docs backend-bench persistence-bench clean fclean re
+.PHONY: all docs backend-bench orm-bench persistence-bench clean fclean re

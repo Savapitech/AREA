@@ -1,0 +1,4 @@
+CREATE DATABASE prisma;
+CREATE DATABASE drizzle;
+CREATE DATABASE pg;
+CREATE DATABASE prisma_shadow;

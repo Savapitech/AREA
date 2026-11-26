@@ -1,0 +1,68 @@
+generator client {
+  provider             = "prisma-client"
+  output               = "../src/prisma/generated"
+  moduleFormat         = "esm"
+  importFileExtension  = "js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id          String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email       String              @unique
+  workflows   Workflow[]
+  connections ServiceConnection[]
+
+  @@map("users")
+}
+
+model Workflow {
+  id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId String @map("user_id") @db.Uuid
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name   String
+  config Json
+  nodes  Node[]
+
+  @@map("workflows")
+}
+
+model Node {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  workflowId String   @map("workflow_id") @db.Uuid
+  workflow   Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  position   Int
+  type       String
+  params     Json
+
+  @@unique([workflowId, position])
+  @@map("nodes")
+}
+
+model ServiceConnection {
+  id      String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId  String @map("user_id") @db.Uuid
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  service String
+
+  @@unique([userId, service])
+  @@map("service_connections")
+}
+
+model HookEvent {
+  id         String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  source     String
+  externalId String @map("external_id")
+
+  @@unique([source, externalId])
+  @@map("hook_events")
+}
+
+model Job {
+  id        Int  @id @default(autoincrement())
+  claimedBy Int? @map("claimed_by")
+
+  @@map("jobs")
+}
