@@ -1,0 +1,84 @@
+x-limits: &limits
+  cpus: "2"
+  mem_limit: 512m
+
+x-secrets: &secrets
+  JWT_SECRET: ${JWT_SECRET:?run ./run.sh}
+  HOOK_SECRET: ${HOOK_SECRET:?run ./run.sh}
+
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: bench
+      POSTGRES_PASSWORD: bench
+      POSTGRES_DB: nest
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "bench"]
+      interval: 1s
+      retries: 60
+
+  nest:
+    image: ${NEST_IMAGE:-area-nestjs-poc}
+    <<: *limits
+    environment:
+      <<: *secrets
+      PORT: "3000"
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_USER: bench
+      DB_PASSWORD: bench
+      DB_NAME: nest
+    ports: ["127.0.0.1:13000:3000"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  express:
+    image: ${EXPRESS_IMAGE:-area-express-poc}
+    <<: *limits
+    environment:
+      <<: *secrets
+      PORT: "3001"
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_USER: bench
+      DB_PASSWORD: bench
+      DB_NAME: express
+    ports: ["127.0.0.1:13001:3001"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  laravel:
+    image: ${LARAVEL_IMAGE:-area-laravel-poc}
+    <<: *limits
+    environment: &laravel-env
+      <<: *secrets
+      APP_ENV: local
+      APP_DEBUG: "false"
+      APP_KEY: ${LARAVEL_APP_KEY:?run ./run.sh}
+      LOG_CHANNEL: stderr
+      SESSION_DRIVER: array
+      CACHE_STORE: file
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_USERNAME: bench
+      DB_PASSWORD: bench
+      DB_DATABASE: laravel
+    ports: ["127.0.0.1:18000:8000"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  laravel-scheduler:
+    image: ${LARAVEL_IMAGE:-area-laravel-poc}
+    <<: *limits
+    environment: *laravel-env
+    command: ["php", "artisan", "schedule:work"]
+    depends_on:
+      laravel:
+        condition: service_started

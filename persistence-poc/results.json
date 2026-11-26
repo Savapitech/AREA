@@ -1,0 +1,383 @@
+{
+  "defaults": {
+    "postgres": {
+      "startsWithoutPassword": false,
+      "message": "Error: Database is uninitialized and superuser password is not specified."
+    },
+    "mariadb": {
+      "startsWithoutPassword": false,
+      "message": "2026-11-26 22:51:53+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified"
+    },
+    "mongodb": {
+      "startsWithoutPassword": true,
+      "anonymousAdminAccess": true,
+      "databasesListedAnonymously": [
+        "admin",
+        "config",
+        "local"
+      ]
+    }
+  },
+  "postgres": {
+    "metrics": {
+      "insert": {
+        "medianTotalMs": 122.045,
+        "meanMsPerOperation": 0.0123,
+        "samplesMs": [
+          122.68029100000012,
+          138.90300800000023,
+          115.69862399999965,
+          116.00975000000108,
+          122.04518000000098
+        ]
+      },
+      "select": {
+        "medianTotalMs": 283.799,
+        "meanMsPerOperation": 0.2825,
+        "samplesMs": [
+          285.088041,
+          278.7167239999999,
+          287.6113889999997,
+          283.7994639999997,
+          277.4062219999996
+        ]
+      },
+      "update": {
+        "medianTotalMs": 1006.862,
+        "meanMsPerOperation": 1.0128,
+        "samplesMs": [
+          989.7437860000005,
+          1006.8624989999998,
+          1080.4306159999996,
+          1010.3715899999988,
+          976.6672309999994
+        ]
+      },
+      "relationships": {
+        "medianTotalMs": 471.355,
+        "meanMsPerOperation": 0.4808,
+        "samplesMs": [
+          526.3072050000001,
+          471.35497900000064,
+          484.18204499999956,
+          464.9696269999986,
+          457.08147199999985
+        ]
+      },
+      "jsonFilter": {
+        "medianTotalMs": 21.821,
+        "meanMsPerOperation": 1.1014,
+        "samplesMs": [
+          23.737615000000005,
+          22.545642000000043,
+          21.821351999999024,
+          21.816560999999638,
+          20.21990100000039
+        ]
+      }
+    },
+    "checks": {
+      "rollback": true,
+      "foreignKeyEnforced": true
+    },
+    "environment": {
+      "node": "v24.21.0",
+      "cpu": "AMD Ryzen 7 8700F 8-Core Processor",
+      "platform": "linux",
+      "ramBytes": 16565035008
+    },
+    "area": {
+      "hookDedup": {
+        "attempts": 100,
+        "stored": 1,
+        "rejectedAsDuplicate": 99,
+        "ok": true
+      },
+      "schemaValidation": {
+        "workflowWithoutTriggerRejected": true,
+        "ok": true
+      },
+      "userDeletion": {
+        "orphanWorkflows": 0,
+        "orphanConnections": 0,
+        "ok": true
+      },
+      "operatorInjection": {
+        "usersReturned": 0,
+        "ok": true
+      },
+      "jobClaim": {
+        "jobs": 200,
+        "workers": 4,
+        "claimed": 200,
+        "claimedTwice": 0,
+        "perWorker": [
+          51,
+          49,
+          50,
+          50
+        ],
+        "ms": 113.3,
+        "ok": true
+      },
+      "jsonIndex": {
+        "rows": 100000,
+        "matching": 1000,
+        "medianMsWithoutIndex": 7.3,
+        "medianMsWithIndex": 0.5,
+        "schemaChangeNeeded": false,
+        "ok": true
+      },
+      "rowLevelSecurity": {
+        "supported": true,
+        "totalRows": 3,
+        "visibleToUser2": 1,
+        "ok": true
+      }
+    },
+    "footprint": {
+      "memoryAfterChecks": "51.18MiB",
+      "imageMB": 665
+    }
+  },
+  "mariadb": {
+    "metrics": {
+      "insert": {
+        "medianTotalMs": 166.253,
+        "meanMsPerOperation": 0.0167,
+        "samplesMs": [
+          171.23123300000043,
+          168.2798870000006,
+          165.65515200000118,
+          166.2527399999999,
+          165.40319400000226
+        ]
+      },
+      "select": {
+        "medianTotalMs": 254.415,
+        "meanMsPerOperation": 0.2585,
+        "samplesMs": [
+          277.48190500000055,
+          257.7184699999998,
+          254.41458600000078,
+          249.95532599999933,
+          253.13385899999776
+        ]
+      },
+      "update": {
+        "medianTotalMs": 1005.181,
+        "meanMsPerOperation": 1.0073,
+        "samplesMs": [
+          1005.1811130000006,
+          1017.1295559999999,
+          969.8004700000001,
+          992.0426760000009,
+          1052.2115249999988
+        ]
+      },
+      "relationships": {
+        "medianTotalMs": 435.182,
+        "meanMsPerOperation": 0.4396,
+        "samplesMs": [
+          415.566096999999,
+          435.1824180000003,
+          432.4767980000015,
+          447.98918299999787,
+          466.7398089999988
+        ]
+      },
+      "jsonFilter": {
+        "medianTotalMs": 102.256,
+        "meanMsPerOperation": 5.1782,
+        "samplesMs": [
+          102.01825699999972,
+          100.17577100000017,
+          106.63676599999962,
+          102.25613099999828,
+          106.7380430000012
+        ]
+      }
+    },
+    "checks": {
+      "rollback": true,
+      "foreignKeyEnforced": true
+    },
+    "environment": {
+      "node": "v24.21.0",
+      "cpu": "AMD Ryzen 7 8700F 8-Core Processor",
+      "platform": "linux",
+      "ramBytes": 16565035008
+    },
+    "area": {
+      "hookDedup": {
+        "attempts": 100,
+        "stored": 1,
+        "rejectedAsDuplicate": 99,
+        "ok": true
+      },
+      "schemaValidation": {
+        "workflowWithoutTriggerRejected": true,
+        "ok": true
+      },
+      "userDeletion": {
+        "orphanWorkflows": 0,
+        "orphanConnections": 0,
+        "ok": true
+      },
+      "operatorInjection": {
+        "usersReturned": 0,
+        "ok": true
+      },
+      "jobClaim": {
+        "jobs": 200,
+        "workers": 4,
+        "claimed": 200,
+        "claimedTwice": 0,
+        "perWorker": [
+          49,
+          48,
+          51,
+          52
+        ],
+        "ms": 126.6,
+        "ok": true
+      },
+      "jsonIndex": {
+        "rows": 100000,
+        "matching": 1000,
+        "medianMsWithoutIndex": 45.4,
+        "medianMsWithIndex": 0.6,
+        "schemaChangeNeeded": true,
+        "ok": true
+      },
+      "rowLevelSecurity": {
+        "supported": false,
+        "ok": false
+      }
+    },
+    "footprint": {
+      "memoryAfterChecks": "149.3MiB",
+      "imageMB": 451
+    }
+  },
+  "mongodb": {
+    "metrics": {
+      "insert": {
+        "medianTotalMs": 139.961,
+        "meanMsPerOperation": 0.0139,
+        "samplesMs": [
+          140.00605199999973,
+          135.1091550000001,
+          141.0366669999985,
+          139.96088600000076,
+          138.98167399999875
+        ]
+      },
+      "select": {
+        "medianTotalMs": 392.535,
+        "meanMsPerOperation": 0.3932,
+        "samplesMs": [
+          418.1781119999996,
+          392.5354609999995,
+          398.7723839999999,
+          391.3787230000016,
+          365.02242000000115
+        ]
+      },
+      "update": {
+        "medianTotalMs": 2136.041,
+        "meanMsPerOperation": 2.145,
+        "samplesMs": [
+          2136.0409870000003,
+          2113.1757130000005,
+          2156.375765999999,
+          2219.7827910000015,
+          2099.7588240000005
+        ]
+      },
+      "relationships": {
+        "medianTotalMs": 2056.638,
+        "meanMsPerOperation": 2.0535,
+        "samplesMs": [
+          2048.3842720000002,
+          2056.6382220000014,
+          2066.8480880000025,
+          2068.2264110000033,
+          2027.2395709999983
+        ]
+      },
+      "jsonFilter": {
+        "medianTotalMs": 46.612,
+        "meanMsPerOperation": 2.3549,
+        "samplesMs": [
+          46.44275699999889,
+          46.61176700000033,
+          47.33955200000128,
+          49.94971599999917,
+          45.14473600000201
+        ]
+      }
+    },
+    "checks": {
+      "rollback": true,
+      "foreignKeyEnforced": false
+    },
+    "environment": {
+      "node": "v24.21.0",
+      "cpu": "AMD Ryzen 7 8700F 8-Core Processor",
+      "platform": "linux",
+      "ramBytes": 16565035008
+    },
+    "area": {
+      "hookDedup": {
+        "attempts": 100,
+        "stored": 1,
+        "rejectedAsDuplicate": 99,
+        "ok": true
+      },
+      "schemaValidation": {
+        "workflowWithoutTriggerRejected": true,
+        "ok": true
+      },
+      "userDeletion": {
+        "orphanWorkflows": 3,
+        "orphanConnections": 1,
+        "ok": false
+      },
+      "operatorInjection": {
+        "usersReturned": 1,
+        "ok": false
+      },
+      "jobClaim": {
+        "jobs": 200,
+        "workers": 4,
+        "claimed": 200,
+        "claimedTwice": 0,
+        "perWorker": [
+          51,
+          48,
+          50,
+          51
+        ],
+        "ms": 154.7,
+        "ok": true
+      },
+      "jsonIndex": {
+        "rows": 100000,
+        "matching": 1000,
+        "medianMsWithoutIndex": 14.3,
+        "medianMsWithIndex": 0.6,
+        "schemaChangeNeeded": false,
+        "ok": true
+      },
+      "rowLevelSecurity": {
+        "supported": false,
+        "ok": false
+      }
+    },
+    "footprint": {
+      "memoryAfterChecks": "271MiB",
+      "imageMB": 1160
+    }
+  }
+}

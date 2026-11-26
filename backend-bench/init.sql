@@ -1,0 +1,2 @@
+CREATE DATABASE express;
+CREATE DATABASE laravel;

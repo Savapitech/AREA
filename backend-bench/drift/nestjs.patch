@@ -1,0 +1,14 @@
+--- a/nestJs-poc/src/hooks/hooks.controller.ts
++++ b/nestJs-poc/src/hooks/hooks.controller.ts
+@@ -21,6 +21,11 @@
+     return { received: true, duplicate: !isNew };
+   }
+ 
++  @Get('drift')
++  drift() {
++    return { drift: true };
++  }
++
+   @Get('events')
+   @UseGuards(JwtAuthGuard)
+   @ApiBearerAuth()

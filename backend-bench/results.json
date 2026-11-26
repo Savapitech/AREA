@@ -1,0 +1,597 @@
+{
+  "date": "2026-11-26",
+  "commit": "33fd44d",
+  "machine": {
+    "cpu": "AMD Ryzen 7 8700F 8-Core Processor",
+    "cpus": 16,
+    "node": "v24.21.0",
+    "platform": "linux"
+  },
+  "targets": {
+    "nestjs": {
+      "startupMs": 1020.6,
+      "functional": {
+        "checks": [
+          {
+            "name": "Register",
+            "expected": "201",
+            "observed": 201,
+            "ok": true
+          },
+          {
+            "name": "Register the same email",
+            "expected": "409",
+            "observed": 409,
+            "ok": true
+          },
+          {
+            "name": "Register with an invalid body",
+            "expected": "400 or 422",
+            "observed": 400,
+            "ok": true
+          },
+          {
+            "name": "Login with a wrong password",
+            "expected": "401",
+            "observed": 401,
+            "ok": true
+          },
+          {
+            "name": "Login",
+            "expected": "200",
+            "observed": 200,
+            "ok": true
+          },
+          {
+            "name": "Current user with the token",
+            "expected": "200",
+            "observed": 200,
+            "ok": true
+          },
+          {
+            "name": "Current user without a token",
+            "expected": "401",
+            "observed": 401,
+            "ok": true
+          },
+          {
+            "name": "Signed webhook",
+            "expected": "200",
+            "observed": 200,
+            "ok": true
+          },
+          {
+            "name": "Same webhook again is flagged as a duplicate",
+            "expected": "200",
+            "observed": 200,
+            "ok": true
+          },
+          {
+            "name": "Detected events without a token",
+            "expected": "401",
+            "observed": 401,
+            "ok": true
+          },
+          {
+            "name": "Polling hook detected a timer.tick on its own",
+            "expected": "200",
+            "observed": 200,
+            "ok": true
+          }
+        ],
+        "firstTickSeconds": 10
+      },
+      "security": {
+        "attacks": [
+          {
+            "attack": "JWT with \"alg\": \"none\"",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "JWT signed with another secret",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "JWT with a modified payload",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "Expired JWT",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "Valid JWT of a user that does not exist",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "Mass assignment of id, isAdmin and passwordHash on register",
+            "expected": "rejected or ignored",
+            "observed": "400, request rejected",
+            "protected": true
+          },
+          {
+            "attack": "SQL injection in the login email",
+            "expected": "400 or 422",
+            "observed": "400",
+            "protected": true
+          },
+          {
+            "attack": "1 MiB request body",
+            "expected": "413, rejected before parsing",
+            "observed": "413",
+            "protected": true
+          },
+          {
+            "attack": "Malformed JSON body",
+            "expected": "4xx, no internals in the response",
+            "observed": "400",
+            "protected": true
+          },
+          {
+            "attack": "Webhook without a signature",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "Webhook signed with another secret",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "Webhook body modified after signing",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "Technology disclosed in response headers",
+            "expected": "no X-Powered-By",
+            "observed": "X-Powered-By: Express",
+            "protected": false
+          },
+          {
+            "attack": "Account enumeration through login response time",
+            "expected": "same time for known and unknown emails",
+            "observed": "known 157.4 ms, unknown 2 ms",
+            "protected": false
+          }
+        ],
+        "timing": {
+          "knownEmailMs": 157.4,
+          "unknownEmailMs": 2
+        }
+      },
+      "performance": {
+        "requestsPerSecond": 3042,
+        "latencyP50Ms": 15,
+        "latencyP99Ms": 23,
+        "failed": 0
+      },
+      "openapi": {
+        "version": "3.0.0",
+        "documentedRoutes": 5,
+        "expectedRoutes": 5,
+        "describedBodies": 0
+      },
+      "drift": {
+        "routeServed": true,
+        "routeDocumented": true
+      },
+      "footprint": {
+        "imageMB": 532,
+        "processes": 1,
+        "handWritten": {
+          "files": 17,
+          "lines": 370
+        },
+        "dependencies": {
+          "production": 180,
+          "vulnerabilities": 0,
+          "highOrCritical": 0
+        }
+      }
+    },
+    "express": {
+      "startupMs": 691.9,
+      "functional": {
+        "checks": [
+          {
+            "name": "Register",
+            "expected": "201",
+            "observed": 201,
+            "ok": true
+          },
+          {
+            "name": "Register the same email",
+            "expected": "409",
+            "observed": 409,
+            "ok": true
+          },
+          {
+            "name": "Register with an invalid body",
+            "expected": "400 or 422",
+            "observed": 400,
+            "ok": true
+          },
+          {
+            "name": "Login with a wrong password",
+            "expected": "401",
+            "observed": 401,
+            "ok": true
+          },
+          {
+            "name": "Login",
+            "expected": "200",
+            "observed": 200,
+            "ok": true
+          },
+          {
+            "name": "Current user with the token",
+            "expected": "200",
+            "observed": 200,
+            "ok": true
+          },
+          {
+            "name": "Current user without a token",
+            "expected": "401",
+            "observed": 401,
+            "ok": true
+          },
+          {
+            "name": "Signed webhook",
+            "expected": "200",
+            "observed": 200,
+            "ok": true
+          },
+          {
+            "name": "Same webhook again is flagged as a duplicate",
+            "expected": "200",
+            "observed": 200,
+            "ok": true
+          },
+          {
+            "name": "Detected events without a token",
+            "expected": "401",
+            "observed": 401,
+            "ok": true
+          },
+          {
+            "name": "Polling hook detected a timer.tick on its own",
+            "expected": "200",
+            "observed": 200,
+            "ok": true
+          }
+        ],
+        "firstTickSeconds": 10
+      },
+      "security": {
+        "attacks": [
+          {
+            "attack": "JWT with \"alg\": \"none\"",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "JWT signed with another secret",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "JWT with a modified payload",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "Expired JWT",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "Valid JWT of a user that does not exist",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "Mass assignment of id, isAdmin and passwordHash on register",
+            "expected": "rejected or ignored",
+            "observed": "400, request rejected",
+            "protected": true
+          },
+          {
+            "attack": "SQL injection in the login email",
+            "expected": "400 or 422",
+            "observed": "400",
+            "protected": true
+          },
+          {
+            "attack": "1 MiB request body",
+            "expected": "413, rejected before parsing",
+            "observed": "500",
+            "protected": false
+          },
+          {
+            "attack": "Malformed JSON body",
+            "expected": "4xx, no internals in the response",
+            "observed": "400",
+            "protected": true
+          },
+          {
+            "attack": "Webhook without a signature",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "Webhook signed with another secret",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "Webhook body modified after signing",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "Technology disclosed in response headers",
+            "expected": "no X-Powered-By",
+            "observed": "X-Powered-By: Express",
+            "protected": false
+          },
+          {
+            "attack": "Account enumeration through login response time",
+            "expected": "same time for known and unknown emails",
+            "observed": "known 155.4 ms, unknown 1.8 ms",
+            "protected": false
+          }
+        ],
+        "timing": {
+          "knownEmailMs": 155.4,
+          "unknownEmailMs": 1.8
+        }
+      },
+      "performance": {
+        "requestsPerSecond": 3657,
+        "latencyP50Ms": 13,
+        "latencyP99Ms": 17,
+        "failed": 0
+      },
+      "openapi": {
+        "version": "3.0.0",
+        "documentedRoutes": 5,
+        "expectedRoutes": 5,
+        "describedBodies": 0
+      },
+      "drift": {
+        "routeServed": true,
+        "routeDocumented": false
+      },
+      "footprint": {
+        "imageMB": 406,
+        "processes": 1,
+        "handWritten": {
+          "files": 14,
+          "lines": 289
+        },
+        "dependencies": {
+          "production": 126,
+          "vulnerabilities": 0,
+          "highOrCritical": 0
+        }
+      }
+    },
+    "laravel": {
+      "startupMs": 1032.9,
+      "functional": {
+        "checks": [
+          {
+            "name": "Register",
+            "expected": "201",
+            "observed": 201,
+            "ok": true
+          },
+          {
+            "name": "Register the same email",
+            "expected": "409",
+            "observed": 409,
+            "ok": true
+          },
+          {
+            "name": "Register with an invalid body",
+            "expected": "400 or 422",
+            "observed": 422,
+            "ok": true
+          },
+          {
+            "name": "Login with a wrong password",
+            "expected": "401",
+            "observed": 401,
+            "ok": true
+          },
+          {
+            "name": "Login",
+            "expected": "200",
+            "observed": 200,
+            "ok": true
+          },
+          {
+            "name": "Current user with the token",
+            "expected": "200",
+            "observed": 200,
+            "ok": true
+          },
+          {
+            "name": "Current user without a token",
+            "expected": "401",
+            "observed": 401,
+            "ok": true
+          },
+          {
+            "name": "Signed webhook",
+            "expected": "200",
+            "observed": 200,
+            "ok": true
+          },
+          {
+            "name": "Same webhook again is flagged as a duplicate",
+            "expected": "200",
+            "observed": 200,
+            "ok": true
+          },
+          {
+            "name": "Detected events without a token",
+            "expected": "401",
+            "observed": 401,
+            "ok": true
+          },
+          {
+            "name": "Polling hook detected a timer.tick on its own",
+            "expected": "200",
+            "observed": 200,
+            "ok": true
+          }
+        ],
+        "firstTickSeconds": 37.6
+      },
+      "security": {
+        "attacks": [
+          {
+            "attack": "JWT with \"alg\": \"none\"",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "JWT signed with another secret",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "JWT with a modified payload",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "Expired JWT",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "Valid JWT of a user that does not exist",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "Mass assignment of id, isAdmin and passwordHash on register",
+            "expected": "rejected or ignored",
+            "observed": "201, extra fields ignored",
+            "protected": true
+          },
+          {
+            "attack": "SQL injection in the login email",
+            "expected": "400 or 422",
+            "observed": "422",
+            "protected": true
+          },
+          {
+            "attack": "1 MiB request body",
+            "expected": "413, rejected before parsing",
+            "observed": "401",
+            "protected": false
+          },
+          {
+            "attack": "Malformed JSON body",
+            "expected": "4xx, no internals in the response",
+            "observed": "422",
+            "protected": true
+          },
+          {
+            "attack": "Webhook without a signature",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "Webhook signed with another secret",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "Webhook body modified after signing",
+            "expected": "401",
+            "observed": "401",
+            "protected": true
+          },
+          {
+            "attack": "Technology disclosed in response headers",
+            "expected": "no X-Powered-By",
+            "observed": "Server: FrankenPHP Caddy",
+            "protected": true
+          },
+          {
+            "attack": "Account enumeration through login response time",
+            "expected": "same time for known and unknown emails",
+            "observed": "known 160.5 ms, unknown 12.8 ms",
+            "protected": false
+          }
+        ],
+        "timing": {
+          "knownEmailMs": 160.5,
+          "unknownEmailMs": 12.8
+        }
+      },
+      "performance": {
+        "requestsPerSecond": 240,
+        "latencyP50Ms": 206,
+        "latencyP99Ms": 248,
+        "failed": 0
+      },
+      "openapi": {
+        "version": "3.1.2",
+        "documentedRoutes": 5,
+        "expectedRoutes": 5,
+        "describedBodies": 3
+      },
+      "drift": {
+        "routeServed": true,
+        "routeDocumented": true
+      },
+      "footprint": {
+        "imageMB": 961,
+        "processes": 2,
+        "handWritten": {
+          "files": 15,
+          "lines": 323
+        },
+        "dependencies": {
+          "production": 82,
+          "vulnerabilities": 0,
+          "highOrCritical": 0
+        }
+      }
+    }
+  }
+}

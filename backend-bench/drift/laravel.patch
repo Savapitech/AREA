@@ -1,0 +1,10 @@
+--- a/laravel-poc/routes/api.php
++++ b/laravel-poc/routes/api.php
+@@ -9,6 +9,7 @@
+ Route::get('/auth/me', [AuthController::class, 'me'])->middleware('jwt');
+ 
+ Route::post('/hooks/webhook', [HooksController::class, 'webhook'])->middleware('hook.signature');
++Route::get('/hooks/drift', fn () => response()->json(['drift' => true]));
+ Route::get('/hooks/events', [HooksController::class, 'events'])->middleware('jwt');
+ 
+ Route::get('/health', function () {
