@@ -13,8 +13,8 @@ command (see @ref backend_selection_evidence).
 in TypeScript. It generates the OpenAPI description that the clients rely on
 from the code, it structures the server into modules with dependency injection
 so the members can work in parallel and the business logic stays behind
-abstractions, it runs the hooks inside the server process, and it blocked the
-largest number of attacks in our test suite. Express alone and Laravel were
+abstractions, it runs the hooks inside the server process, and it blocked 12
+of the 14 attacks of our test suite with its defaults. Express alone and Laravel were
 prototyped with the same scope and rejected for this project, for the reasons
 measured below.
 
@@ -219,8 +219,10 @@ services.
 
 What the results say:
 
-- **NestJS blocked 12 attacks out of 14, Express and Laravel 11.** The JWT and
-  webhook checks hold in all three, because the logic is the same.
+- **NestJS and Laravel blocked 12 attacks out of 14, Express 11.** The count of
+  Laravel includes the header that we hid in its Dockerfile (below): with the
+  default of the image it would be 11. The JWT and webhook checks hold in all
+  three, because the logic is the same.
 - **Request size.** NestJS and Express refuse bodies above 100 KB before
   parsing them, but our Express error handler turns that refusal into a 500.
   PHP accepts bodies up to `post_max_size` (8 MB by default) and Laravel parsed
@@ -367,8 +369,8 @@ NestJS is the only candidate that meets every requirement of section 1 without
 a weak point. It generates the contract with the clients from the code and
 keeps it in step with the routes, it imposes modules and dependency injection
 that keep the business logic behind abstractions, it runs the hooks in the API
-process with the same services, it blocked the most attacks with its defaults,
-and it shares the language of the web client.
+process with the same services, it blocked the most attacks without any
+hardening of ours, and it shares the language of the web client.
 
 **Why not Express alone.** Express gives the same runtime and the same
 libraries, but everything NestJS enforces becomes a convention we would write
