@@ -16,6 +16,7 @@ they rely on.
 | Know why the application server uses NestJS | @ref backend_selection |
 | Reproduce the back-end measures | @ref backend_selection_evidence |
 | Know why the data is stored in PostgreSQL | @ref persistence_selection |
+| Know why the server uses TypeORM | @ref persistence_selection_orm |
 | Reproduce the persistence measures | @ref persistence_selection_evidence |
 
 ## Project at a glance
@@ -23,7 +24,7 @@ they rely on.
 | Item | Value |
 | ---- | ----- |
 | Application server | NestJS on Node.js 24, TypeScript |
-| Database | PostgreSQL 17 |
+| Database | PostgreSQL 17, through TypeORM |
 | Web client | React, TypeScript |
 | Mobile client | Android |
 | Build and run | Docker Compose |
