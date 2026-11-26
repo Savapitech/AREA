@@ -1,0 +1,278 @@
+{
+  "date": "2026-11-26",
+  "commit": "ac75df2",
+  "machine": {
+    "cpu": "AMD Ryzen 7 8700F 8-Core Processor",
+    "node": "v24.21.0"
+  },
+  "targets": {
+    "typeorm": {
+      "name": "TypeORM",
+      "setupMs": 50.2,
+      "checks": {
+        "workflowWithFourReactions": {
+          "ok": true,
+          "observed": "1 workflow, nodes 1,2,3,4"
+        },
+        "rollbackOfAWorkflowWithAnInvalidNode": {
+          "ok": true,
+          "observed": "rejected true, workflows left 1"
+        },
+        "workflowWithoutTriggerRefused": {
+          "ok": true,
+          "observed": "refused"
+        },
+        "sameOccurrenceRecordedOnce": {
+          "ok": true,
+          "observed": "1 of 100 accepted"
+        },
+        "jobsClaimedOnce": {
+          "ok": true,
+          "observed": "200 claimed, 0 twice, split 48/50/52/50"
+        },
+        "userDeletionRemovesEverything": {
+          "ok": true,
+          "observed": "0 workflows, 0 nodes, 0 connections left"
+        }
+      },
+      "performance": {
+        "createWorkflowMs": 2.242,
+        "listWorkflowsMs": 1.326,
+        "countByJsonFieldMs": 0.452,
+        "countIsCorrect": true
+      },
+      "typecheck": {
+        "control": {
+          "compiles": true,
+          "error": null
+        },
+        "unselected-field": {
+          "compiles": true,
+          "error": null
+        },
+        "wrong-column": {
+          "compiles": false,
+          "error": "error TS2353: Object literal may only specify known properties, and 'emial' does not exist in type 'FindOptionsWhere<User> | FindOptionsWhere<User>[]'."
+        },
+        "wrong-json-shape": {
+          "compiles": false,
+          "error": "error TS2322: Type 'number' is not assignable to type 'string | (() => string) | undefined'."
+        }
+      },
+      "migrations": {
+        "cascadeGenerated": true,
+        "checkGenerated": true,
+        "uniqueGenerated": true,
+        "sqlWrittenByHand": 0,
+        "downMigration": true
+      },
+      "dependencies": {
+        "runtimePackages": 42,
+        "runtimeMegabytes": 24.2,
+        "withToolingPackages": 42,
+        "withToolingMegabytes": 24.2,
+        "runtimeVulnerabilities": [],
+        "toolingVulnerabilities": []
+      }
+    },
+    "prisma": {
+      "name": "Prisma",
+      "setupMs": 906.8,
+      "checks": {
+        "workflowWithFourReactions": {
+          "ok": true,
+          "observed": "1 workflow, nodes 1,2,3,4"
+        },
+        "rollbackOfAWorkflowWithAnInvalidNode": {
+          "ok": true,
+          "observed": "rejected true, workflows left 1"
+        },
+        "workflowWithoutTriggerRefused": {
+          "ok": true,
+          "observed": "refused"
+        },
+        "sameOccurrenceRecordedOnce": {
+          "ok": true,
+          "observed": "1 of 100 accepted"
+        },
+        "jobsClaimedOnce": {
+          "ok": true,
+          "observed": "200 claimed, 0 twice, split 49/51/50/50"
+        },
+        "userDeletionRemovesEverything": {
+          "ok": true,
+          "observed": "0 workflows, 0 nodes, 0 connections left"
+        }
+      },
+      "performance": {
+        "createWorkflowMs": 2.897,
+        "listWorkflowsMs": 1.381,
+        "countByJsonFieldMs": 0.648,
+        "countIsCorrect": true
+      },
+      "typecheck": {
+        "control": {
+          "compiles": true,
+          "error": null
+        },
+        "unselected-field": {
+          "compiles": false,
+          "error": "error TS2339: Property 'email' does not exist on type '{ id: string; }'."
+        },
+        "wrong-column": {
+          "compiles": false,
+          "error": "error TS2561: Object literal may only specify known properties, but 'emial' does not exist in type 'UserWhereInput'. Did you mean to write 'email'?"
+        },
+        "wrong-json-shape": {
+          "compiles": true,
+          "error": null
+        }
+      },
+      "migrations": {
+        "cascadeGenerated": true,
+        "checkGenerated": false,
+        "uniqueGenerated": true,
+        "sqlWrittenByHand": 1,
+        "downMigration": false
+      },
+      "dependencies": {
+        "runtimePackages": 23,
+        "runtimeMegabytes": 78,
+        "withToolingPackages": 153,
+        "withToolingMegabytes": 300.5,
+        "runtimeVulnerabilities": [],
+        "toolingVulnerabilities": [
+          "@prisma/config (high)",
+          "effect (high)",
+          "prisma (high)"
+        ]
+      }
+    },
+    "drizzle": {
+      "name": "Drizzle",
+      "setupMs": 32.8,
+      "checks": {
+        "workflowWithFourReactions": {
+          "ok": true,
+          "observed": "1 workflow, nodes 1,2,3,4"
+        },
+        "rollbackOfAWorkflowWithAnInvalidNode": {
+          "ok": true,
+          "observed": "rejected true, workflows left 1"
+        },
+        "workflowWithoutTriggerRefused": {
+          "ok": true,
+          "observed": "refused"
+        },
+        "sameOccurrenceRecordedOnce": {
+          "ok": true,
+          "observed": "1 of 100 accepted"
+        },
+        "jobsClaimedOnce": {
+          "ok": true,
+          "observed": "200 claimed, 0 twice, split 51/51/49/49"
+        },
+        "userDeletionRemovesEverything": {
+          "ok": true,
+          "observed": "0 workflows, 0 nodes, 0 connections left"
+        }
+      },
+      "performance": {
+        "createWorkflowMs": 2.1,
+        "listWorkflowsMs": 0.931,
+        "countByJsonFieldMs": 0.415,
+        "countIsCorrect": true
+      },
+      "typecheck": {
+        "control": {
+          "compiles": true,
+          "error": null
+        },
+        "unselected-field": {
+          "compiles": false,
+          "error": "error TS2339: Property 'email' does not exist on type '{ id: string; }'."
+        },
+        "wrong-column": {
+          "compiles": false,
+          "error": "error TS2551: Property 'emial' does not exist on type 'PgTableWithColumns<{ name: \"users\"; schema: undefined; columns: { id: PgColumn<{ name: \"id\"; tableName: \"users\"; dataType: \"string\"; columnType: \"PgUUID\"; data: string; driverParam: string; notNull: true; hasDefault: true; ... 6 more ...; generated: undefined; }, {}, {}>; email: PgColumn<...>; }; dialect: \"pg\"; }>'. Did you mean 'email'?"
+        },
+        "wrong-json-shape": {
+          "compiles": false,
+          "error": "error TS2769: No overload matches this call."
+        }
+      },
+      "migrations": {
+        "cascadeGenerated": true,
+        "checkGenerated": true,
+        "uniqueGenerated": true,
+        "sqlWrittenByHand": 0,
+        "downMigration": false
+      },
+      "dependencies": {
+        "runtimePackages": 15,
+        "runtimeMegabytes": 11,
+        "withToolingPackages": 103,
+        "withToolingMegabytes": 85.8,
+        "runtimeVulnerabilities": [],
+        "toolingVulnerabilities": [
+          "@esbuild-kit/core-utils (moderate)",
+          "@esbuild-kit/esm-loader (moderate)",
+          "drizzle-kit (moderate)",
+          "esbuild (moderate)"
+        ]
+      }
+    },
+    "pg": {
+      "name": "pg alone",
+      "setupMs": 16.1,
+      "checks": {
+        "workflowWithFourReactions": {
+          "ok": true,
+          "observed": "1 workflow, nodes 1,2,3,4"
+        },
+        "rollbackOfAWorkflowWithAnInvalidNode": {
+          "ok": true,
+          "observed": "rejected true, workflows left 1"
+        },
+        "workflowWithoutTriggerRefused": {
+          "ok": true,
+          "observed": "refused"
+        },
+        "sameOccurrenceRecordedOnce": {
+          "ok": true,
+          "observed": "1 of 100 accepted"
+        },
+        "jobsClaimedOnce": {
+          "ok": true,
+          "observed": "200 claimed, 0 twice, split 50/50/50/50"
+        },
+        "userDeletionRemovesEverything": {
+          "ok": true,
+          "observed": "0 workflows, 0 nodes, 0 connections left"
+        }
+      },
+      "performance": {
+        "createWorkflowMs": 1.868,
+        "listWorkflowsMs": 0.804,
+        "countByJsonFieldMs": 0.365,
+        "countIsCorrect": true
+      },
+      "typecheck": null,
+      "migrations": {
+        "cascadeGenerated": false,
+        "checkGenerated": false,
+        "uniqueGenerated": false,
+        "sqlWrittenByHand": 1,
+        "downMigration": false
+      },
+      "dependencies": {
+        "runtimePackages": 14,
+        "runtimeMegabytes": 0.5,
+        "withToolingPackages": 14,
+        "withToolingMegabytes": 0.5,
+        "runtimeVulnerabilities": [],
+        "toolingVulnerabilities": []
+      }
+    }
+  }
+}
